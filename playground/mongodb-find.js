@@ -15,13 +15,13 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     const db = client.db('TodoApp');
 
     /*
-    db.collection('todos').find({ 
+    db.collection('Todos').find({ 
         completed: true,        // returns all completed items
         //_id: new ObjectID("5b633f204f0d4033b008ccdf") // returns specific todo
 
     }).toArray()
         .then( (docs) => {
-            console.log('Todos');
+            console.log('Todo List Items');
             console.log(JSON.stringify(docs, undefined, 2));
         }, (err) => {
             console.log('Unable to fetch todos', err);
@@ -30,7 +30,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
     /*
     // count the number of todos
-    db.collection('todos').find().count().then( (count) => {
+    db.collection('Todos').find().count().then( (count) => {
         console.log('Todos count:' + count);
     }, (err) => {
         console.log('Unable to fetch todos', err);
