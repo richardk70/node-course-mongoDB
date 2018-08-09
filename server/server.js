@@ -27,6 +27,10 @@ app.post('/todos', (req, res) => {
     });
 });
 
+app.get('/', (req, res) => {
+    res.send(`server/server.js running on port ${port}...`);
+});
+
 app.get('/todos/:id', (req, res) => {
     var id = req.params.id;
     // valid id using isValid
@@ -46,6 +50,26 @@ app.get('/todos/:id', (req, res) => {
         res.send({todo});
 
     }).catch( (e) =>{
+        res.status(400).send();
+    });
+});
+
+app.delete('/todos/:id', (req, res) => {
+    // get the ID from the URL
+    var id = req.params.id;
+    // validate the ID. if not valid, return 404
+    if (!ObjectID.isValid(id)){
+        console.log('ID not valid.');
+        return res.status(404).send();
+    }
+    // remove todo by ID (err, success)
+    Todo.findByIdAndRemove(id).then( (todo)=> {
+        if (!todo)
+            return res.status(404).send();
+        // success: send document back with code 200
+        res.status(200).send(todo);
+    }).catch( (e) => {
+        // error: return 400 w/ empty body send();
         res.status(400).send();
     });
 });
