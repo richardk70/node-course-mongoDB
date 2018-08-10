@@ -1,4 +1,6 @@
-// server.js file just responsible for our routes
+// server.js file responsible for our routes
+
+require('./config/config.js');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,7 +15,7 @@ var obj = new ObjectID();
 console.log(obj);
 
 var app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
