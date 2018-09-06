@@ -52,9 +52,9 @@ UserSchema.methods.generateAuthToken = function () {
   });
 };
 
-UserSchema.statics.findByToken = function (token) {
-  var User = this;
-  var decoded;
+UserSchema.statics.findByToken = function(token) {
+  var User = this; // (this is a model method)
+  var decoded = undefined;
 
   try {
     decoded = jwt.verify(token, 'abc123');
@@ -63,11 +63,13 @@ UserSchema.statics.findByToken = function (token) {
   }
 
   return User.findOne({
-    '_id': decoded._id,
+    _id: decoded._id,
     'tokens.token': token,
     'tokens.access': 'auth'
   });
 };
+
+
 
 UserSchema.pre('save', function (next) {
   var user = this;

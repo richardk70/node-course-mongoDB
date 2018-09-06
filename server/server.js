@@ -94,7 +94,7 @@ app.patch('/todos/:id', (req, res) => {
     res.send({todo});
   }).catch((e) => {
     res.status(400).send();
-  })
+  });
 });
 
 // POST /users
@@ -108,7 +108,7 @@ app.post('/users', (req, res) => {
     res.header('x-auth', token).send(user);
   }).catch((e) => {
     res.status(400).send(e);
-  })
+  });
 });
 
 app.get('/users/me', authenticate, (req, res) => {
@@ -116,7 +116,7 @@ app.get('/users/me', authenticate, (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Started up at port ${port}`);
+  console.log(`Started up at port ${port}...`);
 });
 
 module.exports = {app};
