@@ -4,44 +4,34 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
+const {todos, populateTodos, users, populateUsers} = require('./seed/seed');
 
-const todos = [{
-  _id: new ObjectID(),
-  text: 'First test todo'
-}, {
-  _id: new ObjectID(),
-  text: 'Second test todo',
-  completed: true,
-  completedAt: 333
-}];
-
-beforeEach((done) => {
-  Todo.remove({}).then(() => {
-    return Todo.insertMany(todos);
-  }).then(() => done());
-});
+beforeEach(populateUsers);
+beforeEach(populateTodos);
 
 describe('POST /todos', () => {
-  it('should create a new todo', (done) => {
+  it('should create a new todo', function(done){
     var text = 'Test todo text';
 
     request(app)
       .post('/todos')
       .send({text})
       .expect(200)
-      .expect((res) => {
+      .expect(function(res) {
         expect(res.body.text).toBe(text);
       })
-      .end((err, res) => {
+      .end(function(err, res) {
         if (err) {
           return done(err);
         }
 
-        Todo.find({text}).then((todos) => {
+        Todo.find({text}).then(function(todos) {
           expect(todos.length).toBe(1);
           expect(todos[0].text).toBe(text);
           done();
-        }).catch((e) => done(e));
+        }).catch(function(e) 
+        {done(e)}
+      );
       });
   });
 
@@ -164,13 +154,13 @@ describe('PATCH /todos/:id', () => {
 
   it('should clear completedAt when todo is not completed', (done) => {
     var hexId = todos[1]._id.toHexString();
-    var text = 'This should be the new text!!';
+    var newText = 'This should be the new text!!';
 
     request(app)
       .patch(`/todos/${hexId}`)
       .send({
         completed: false,
-        text
+        text: newText
       })
       .expect(200)
       .expect((res) => {

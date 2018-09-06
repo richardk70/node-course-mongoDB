@@ -12,9 +12,17 @@ const {User} = require('./../server/models/user');
 // Todo.findByIdAndRemove
 
 // Todo.findOneAndRemove({_id: '57c4610dbb35fcbf6fda1154'}).then((todo) => {
-//
+  //   console.log(todo);
 // });
 
-Todo.findByIdAndRemove('57c4610dbb35fcbf6fda1154').then((todo) => {
+// Todo.findByIdAndRemove('57c4610dbb35fcbf6fda1154').then((todo) => {
+//   console.log(todo);
+// });
+
+// Todo.remove({completed: true}).then( (res) => {
+//   console.log(res);
+// });
+
+Todo.findByIdAndRemove('5b9015eff719942b50bb06d6').then( (todo) => {
   console.log(todo);
 });
