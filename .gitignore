@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 node_modules/
-=======
-node_modules/
->>>>>>> f9110a32d3ae039382eb28ff4816734b1d3825b4
+server/config/config.json
